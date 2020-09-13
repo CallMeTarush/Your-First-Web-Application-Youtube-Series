@@ -9,6 +9,27 @@
 <body>
 	<h1>Welcome User!</h1>
 	<div id="test"></div>
+
+	<h1> CRUD </h1>
+
+	<h2>Read</h2>
+	<input type="number" id="index" name="index" />
+	<button onclick="fetchData()" >Fetch</button>
+
+	<h2>Create</h2>
+	<input type="text" id="newName" name="newName" />
+	<button onclick="createData()" >Create</button>	
+
+	<h2>Update</h2>
+	<input type="number" id="existingIndex" name="existingIndex" />
+	<input type="text" id="updatedName" name="updatedName" />
+	<button onclick="updateData()" >Update</button>	
+
+
+	<h2>Delete</h2>
+	<input type="number" id="existingIndexToDelete" name="existingIndexToDelete" />
+	<button onclick="deleteData()" >Delete</button>	
+
 </body>
 
 
@@ -17,5 +38,39 @@
 	$.get("http://127.0.0.1:5000/").then(data => 
 		document.getElementById("test").innerHTML = data
 	);
+
+	function fetchData() {
+		let index = document.getElementById("index").value;
+		$.get("http://127.0.0.1:5000/" + "read/" + index).then(data => 
+			document.getElementById("test").innerHTML = data
+		);		
+	}
+
+	function createData() {
+		let newName = document.getElementById("newName").value;
+		$.post("http://127.0.0.1:5000/" + "create", {"name": newName}).then(data =>
+			console.log(data)
+		);
+	}
+
+	function updateData() {
+		let existingIndex = document.getElementById("existingIndex").value;
+		let updatedName = document.getElementById("updatedName").value;
+		$.post("http://127.0.0.1:5000/" + "update", {"newName": updatedName, "index": existingIndex}).then(data =>
+			console.log(data)
+		);
+	}
+
+	function deleteData() {
+		let existingIndexToDelete = document.getElementById("existingIndexToDelete").value;
+		$.ajax({
+		    url: "http://127.0.0.1:5000/" + "delete/" + existingIndexToDelete,
+		    type: 'DELETE',
+		    success: function(result) {
+		        console.log(result)
+		    }
+		});
+	}
+
 </script>
 </html>
