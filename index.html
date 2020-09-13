@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+	<h1>Welcome User!</h1>
+	<div id="test"></div>
+</body>
+
+
+<script type="text/javascript">
+
+	$.get("http://127.0.0.1:5000/").then(data => 
+		document.getElementById("test").innerHTML = data
+	);
+</script>
+</html>
